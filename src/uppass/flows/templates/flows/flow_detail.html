@@ -1,0 +1,72 @@
+{% extends "layouts/base.html" %}
+{% load i18n %}
+
+{% block title %}dashboard-flows-{% endblock %}
+
+{% block content %}
+    <h1>Flow: {{ flow.name}}</h1>
+    <hr>
+    <h3>Builder</h3>
+    {% for form_group in form_groups %}
+        <div class="pt-4">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-10">
+                            <h5 class="mt-2" >{{ form_group.name }} <small>({% if form_group.is_public %}Active{% else %}Deactive{% endif %})</small></h5>
+                        </div>
+                        <div class="col-1">
+                            <a href="{% url 'flows:group-update' slug=form_group.slug %}?flow={{flow.slug}}" >
+                                <button type="button" class="btn btn-primary">Edit</button>
+                            </a>
+                        </div>
+                        <div class="col-1">
+                            <a href="{% url 'flows:group-delete' slug=form_group.slug %}?flow={{flow.slug}}" >
+                                <button type="button" class="btn btn-danger">Delete</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% for element in form_group.elements %}
+                    <div class="card m-4 mb-2">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h6>{{ element.name }} <small>({% if element.is_public %}Active{% else %}Deactive{% endif %})</small></h6>
+                                </div>
+                                <div class="col">
+                                    <small> description: {{ element.description }}</small>
+                                </div>
+                                <div class="col">
+                                    <small> required: {{ element.required }}</small>
+                                </div>
+                                <div class="col-1">
+                                    <a href="{% url 'flows:element-update' slug=element.slug %}?flow={{flow.slug}}" >
+                                        <button type="button" class="btn btn-primary btn-sm">edit</button>
+                                    </a>
+                                </div>
+                                <div class="col-1">
+                                    <a href="{% url 'flows:element-delete' slug=element.slug %}?flow={{flow.slug}}" >
+                                        <button type="button" class="btn btn-danger btn-sm">delete</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="card-body">
+                    <a href="{% url 'flows:element-create' slug=form_group.slug %}?flow={{flow.slug}}" >
+                        <button type="button" class="btn btn-outline-primary">+ Add Element</button>
+                    </a>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    <br>
+    <a href="{% url 'flows:group-create' slug=flow.slug %}">
+        <button type="button" class="btn btn-warning">+ Add Element</button>
+    </a>
+
+
+{% endblock content %}

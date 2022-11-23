@@ -1,0 +1,22 @@
+{% extends "layouts/base.html" %}
+{% load i18n %}
+
+{% block title %}choice-create{% endblock %}
+
+
+{% block content %}
+    {% if choice %}
+    <h1>Update choice</h1>
+    {% else %}
+        <h1>Create choice</h1>
+    {% endif %}
+    <form class="pt-4" method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            {{ form.as_p }}
+        </div>
+        <button type="submit" class="btn btn-primary" data-loading-text="Creating...">
+            Submit
+        </button>
+    </form>
+{% endblock content %}

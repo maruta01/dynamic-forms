@@ -1,0 +1,30 @@
+{% extends "layouts/base.html" %}
+{% load i18n %}
+
+{% block title %}choice_group-create{% endblock %}
+
+{% block content %}
+    {% if choice_group %}
+    <h1>Update choice group</h1>
+    {% else %}
+        <h1>Create choice group</h1>
+    {% endif %}
+    <form class="pt-4" method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            {{ form.as_p }}
+        </div>
+        <div class="mb-3">
+            {% for choice in choice_group.choice.all %}
+                <li>{{ choice.value }}</li>
+            {% endfor %}
+        </div>
+        {% if not choice_group %}
+        <a href="{% url 'flows:choice-create' %}?{{ url_param }}">Add choice</a>
+        {% endif %}
+        <hr>
+        <button type="submit" class="btn btn-primary" data-loading-text="Creating...">
+            Submit
+        </button>
+    </form>
+{% endblock content %}

@@ -1,0 +1,18 @@
+{% extends "layouts/base.html" %}
+{% load i18n %}
+
+{% block title %}form group-delete{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        Delete form group <strong>{{ form_group.name }}</strong> - are you sure?
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        <div class="card-footer">
+            <button type="submit" class="btn btn-danger" data-loading-text="Deleting...">Delete</button>
+        </div>
+    </form>
+</div>
+{% endblock content %}

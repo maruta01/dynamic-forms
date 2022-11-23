@@ -1,0 +1,22 @@
+{% extends "layouts/base.html" %}
+{% load i18n %}
+
+{% block title %}form group-create{% endblock %}
+
+{% block content %}
+    {% if form_group %}
+    <h1>Update Form Group</h1>
+    {% else %}
+        <h1>Create Form Group</h1>
+    {% endif %}
+    {{ form.errors }}
+    <form class="pt-4" method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            {{ form.as_p }}
+        </div>
+        <button type="submit" class="btn btn-primary" data-loading-text="Creating...">
+            Submit
+        </button>
+    </form>
+{% endblock content %}

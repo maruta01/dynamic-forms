@@ -1,0 +1,22 @@
+{% extends "layouts/base.html" %}
+{% load i18n %}
+
+{% block title %}Form Regist{% endblock %}
+
+{% block content %}
+    <h1>Form Regist</h1> 
+    {{ form.errors }}
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            {% for form in formset %}
+                {{ form.as_p }}
+                {% csrf_token %}
+                <hr>
+            {% endfor %}
+        </div>
+        <button type="submit" class="btn btn-primary" data-loading-text="Creating...">
+            Create
+        </button>
+    </form>
+{% endblock %}

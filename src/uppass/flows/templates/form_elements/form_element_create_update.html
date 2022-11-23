@@ -1,0 +1,67 @@
+{% extends "layouts/base.html" %}
+{% load i18n %}
+
+{% block title %}form group-create{% endblock %}
+
+
+{% block content %}
+    {% if form_element %}
+    <h1>Update Element</h1>
+    {% else %}
+        <h1>Create Element</h1>
+    {% endif %}
+    {{ form.errors }}
+    <form class="pt-4" method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <div class="input-group mb-3">
+                <span class="me-2">{{ form.name.name }}</span>
+                {{ form.name }}
+            </div>
+            <div class="input-group mb-3">
+                <span class="me-2">{{ form.description.name }}</span>
+                {{ form.description }}
+            </div>
+            <div class="input-group mb-3">
+                <span class="me-2">{{ form.datatype.name }}</span>
+                {{ form.datatype }}
+            </div>
+            <div class="input-group mb-3" id="select_choices" style="display: none;">
+                <span class="me-2">choice group</span>
+                {{ form.choice_group }}
+                <a href="{% url 'flows:choice_group-create' %}{{ url_param }}">add question</a>
+            </div>
+            <div class="input-group mb-3">
+                <span class="me-2">{{ form.display_order.name }}</span>
+                {{ form.display_order }}
+            </div>
+            <div class="input-group mb-3">
+                <span class="me-2">{{ form.required.name }}</span>
+                {{ form.required }}
+            </div>
+            <div class="input-group mb-3">
+                <span class="me-2">{{ form.is_public.name }}</span>
+                {{ form.is_public }}
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary" data-loading-text="Creating...">
+            Submit
+        </button>
+    </form>
+
+{% endblock content %}
+
+
+{% block script %}
+    <script>
+        function CheckDataType() {
+            var data_type = document.getElementById("{{ form.datatype.auto_id }}");
+            var el_choice = document.getElementById("select_choices");
+            if(data_type.value == "enum"){
+                el_choice.style.display = 'block'
+            }else{
+                el_choice.style.display = 'none'
+            }
+        }
+    </script>
+{% endblock %}
