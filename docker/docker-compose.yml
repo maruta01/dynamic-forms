@@ -3,7 +3,7 @@ services:
   app:
     build: .
     volumes:
-      - ../src/uppass/:/django
+      - ../src/dynamic_forms/:/django
     ports:
       - 8000:8000
     image: app:django
